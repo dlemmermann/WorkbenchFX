@@ -10,6 +10,8 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIcon;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import java.util.Objects;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -37,6 +39,7 @@ public abstract class WorkbenchModule {
   private FontAwesomeIcon faIcon;
   private MaterialDesignIcon mdIcon;
   private Image imgIcon;
+  private BooleanProperty closeable = new SimpleBooleanProperty(true);
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
@@ -207,6 +210,23 @@ public abstract class WorkbenchModule {
       return new MaterialDesignIconView(mdIcon);
     }
     return new ImageView(imgIcon);
+  }
+
+  public boolean isCloseable() {
+    return closeable.get();
+  }
+
+  public BooleanProperty closeableProperty() {
+    return closeable;
+  }
+
+  /**
+   * If a module should not be closeable, the closeable property should be set to false.
+   *
+   * @param closeable false if the module should not be closeable.
+   */
+  public void setCloseable(boolean closeable) {
+    this.closeable.set(closeable);
   }
 
   /**
