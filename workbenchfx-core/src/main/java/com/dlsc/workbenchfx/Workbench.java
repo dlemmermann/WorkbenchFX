@@ -24,12 +24,14 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.beans.binding.DoubleExpression;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -164,6 +166,7 @@ public final class Workbench extends Control {
   private final IntegerProperty modulesPerPage =
       new SimpleIntegerProperty(this, "modulesPerPage", DEFAULT_MODULES_PER_PAGE);
   private final IntegerProperty amountOfPages = new SimpleIntegerProperty(this, "amountOfPages");
+  private final BooleanProperty addModuleBtnVisible = new SimpleBooleanProperty(this, "addModuleBtnVisible", true);
 
   // Builder
   /**
@@ -1239,5 +1242,24 @@ public final class Workbench extends Control {
   @Override
   public final String getUserAgentStylesheet() {
     return Workbench.class.getResource("css/main.css").toExternalForm();
+  }
+
+  public boolean isAddModuleBtnVisible() {
+    return addModuleBtnVisible.get();
+  }
+
+  public BooleanProperty addModuleBtnVisibleProperty() {
+    return addModuleBtnVisible;
+  }
+
+  /**
+   * If there should no be an add-Button the addModuleBtnVisible should be set to false.
+   * Per default this property is set to true.
+   *
+   * @param addModuleBtnVisible defines whether the Addmodule-Button for opening the AddModulePage
+   *                            should be visible
+   */
+  public void setAddModuleBtnVisible(boolean addModuleBtnVisible) {
+    this.addModuleBtnVisible.set(addModuleBtnVisible);
   }
 }
